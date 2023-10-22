@@ -1,0 +1,15 @@
+@import "modules/Toolbar.module.scss";
+@import "modules/Canvas.module.scss";
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  height: 100vh;
+  max-height: 100vh;
+  background-color: #f5f5f5;
+}
