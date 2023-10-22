@@ -8,7 +8,7 @@ const Canvas = observer(() => {
     const reference = useRef() as MutableRefObject<HTMLCanvasElement>
 
     useEffect(() => {
-        canvas.setCanvas("canvas")
+        canvas.setCanvas(reference.current)
     }, [])
 
     return (
