@@ -1,6 +1,6 @@
 import Tool from "./Tool"
 
-export default class Brush extends Tool {
+export default class Rect extends Tool {
 
   private mouseDown: boolean = false
 
@@ -22,15 +22,15 @@ export default class Brush extends Tool {
   mouseDownHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void {
     this.mouseDown = true
     this.ctx?.beginPath()
-    this.ctx?.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop);
   }
 
   mouseMoveHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void  {
-    this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
+    let width = e.pageX - e.target.offsetLeft - e.pageX - e.target.offsetLeft
+    let height = e.pageY - e.target.offsetTop - e.pageY - e.target.offsetTop
+    this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop, width, height)
   }
 
-  draw(x: number, y: number): void  {
-    this.ctx?.lineTo(x, y)
-    this.ctx?.stroke()
+  draw(x: number, y: number, w: number, h: number): void  {
+
   }
 }
