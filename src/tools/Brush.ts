@@ -10,9 +10,9 @@ export default class Brush extends Tool {
   }
 
   listen() {
-    this.canvas.onmousemove = this.mouseMoveHandler.bind(this)
+    this.canvas.onmousemove = this.mouseMoveHandler.bind(this) as (e: MouseEvent) => void
     this.canvas.onmousedown = this.mouseDownHandler.bind(this) as (e: MouseEvent) => void
-    this.canvas.onmouseup = this.mouseUpHandler.bind(this)
+    this.canvas.onmouseup = this.mouseUpHandler.bind(this) as (e: MouseEvent) => void
   }
 
   mouseUpHandler(e: MouseEvent): void  {
@@ -25,10 +25,8 @@ export default class Brush extends Tool {
     this.ctx?.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop);
   }
 
-  mouseMoveHandler(e: MouseEvent): void  {
-     if (this.mouseDown && e.target instanceof HTMLElement) {
-       this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
-     }
+  mouseMoveHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void  {
+    this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
   }
 
   draw(x: number, y: number): void  {
