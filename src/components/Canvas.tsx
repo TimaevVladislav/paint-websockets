@@ -1,7 +1,10 @@
-import React, {LegacyRef, MutableRefObject, useEffect, useRef} from "react"
+import React, { MutableRefObject, useEffect, useRef } from "react"
 import {observer} from "mobx-react-lite"
 import "../css/modules/Canvas.module.scss"
 import canvas from "../store/canvas"
+import tools from "../store/tools"
+
+import Brush from "../tools/Brush"
 
 const Canvas = observer(() => {
 
@@ -9,6 +12,7 @@ const Canvas = observer(() => {
 
     useEffect(() => {
         canvas.setCanvas(reference.current)
+        tools.setTool({tool: new Brush(reference.current)})
     }, [])
 
     return (
