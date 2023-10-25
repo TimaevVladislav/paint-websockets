@@ -15,7 +15,6 @@ const Toolbar = () => {
             />
 
             <button
-
                 className="toolbar__btn rect"
                 onClick={() => tools.setTool({tool: new Brush(canvas.canvas)})}
             />
