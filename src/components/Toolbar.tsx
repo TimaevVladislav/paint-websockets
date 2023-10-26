@@ -4,6 +4,7 @@ import tools from "../store/tools"
 import canvas from "../store/canvas"
 
 import Brush from "../tools/Brush"
+import Rect from "../tools/Rect"
 
 const Toolbar = () => {
 
@@ -16,7 +17,7 @@ const Toolbar = () => {
 
             <button
                 className="toolbar__btn rect"
-                onClick={() => tools.setTool({tool: new Brush(canvas.canvas)})}
+                onClick={() => tools.setTool({tool: new Rect(canvas.canvas)})}
             />
 
             <button

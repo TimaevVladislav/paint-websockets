@@ -3,6 +3,8 @@ import Tool from "./Tool"
 export default class Rect extends Tool {
 
   private mouseDown: boolean = false
+  private startX: number = 0
+  private startY: number = 0
 
   constructor(canvas: HTMLCanvasElement) {
     super(canvas)
@@ -22,15 +24,21 @@ export default class Rect extends Tool {
   mouseDownHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void {
     this.mouseDown = true
     this.ctx?.beginPath()
+    this.startX = e.pageX - e.target.offsetLeft
+    this.startY = e.pageY - e.target.offsetTop
   }
 
   mouseMoveHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void  {
-    let width = e.pageX - e.target.offsetLeft - e.pageX - e.target.offsetLeft
-    let height = e.pageY - e.target.offsetTop - e.pageY - e.target.offsetTop
-    this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop, width, height)
+    let currentX = e.pageX - e.target.offsetLeft
+    let currentY = e.pageY - e.target.offsetTop
+    let width = currentX - this.startX
+    let height = currentY - this.startY
+    this.draw(this.startX, this.startY, width, height)
   }
 
   draw(x: number, y: number, w: number, h: number): void  {
-
+    this.ctx?.rect(x, y, w, h)
+    this.ctx?.fill()
+    this.ctx?.stroke()
   }
 }
