@@ -1,4 +1,6 @@
 import Tool from "./Tool"
+import {bindReporter} from "web-vitals/dist/modules/lib/bindReporter";
+import {isBigInt64Array} from "util/types";
 
 export default class Rect extends Tool {
 
@@ -41,7 +43,7 @@ export default class Rect extends Tool {
   draw(x: number, y: number, w: number, h: number): void  {
     const img: HTMLImageElement = new Image()
     img.src = this.saved as string
-    img.onload = (): void => {
+    img.onload = async (): Promise<void> => {
       this.ctx?.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.ctx?.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
       this.ctx?.beginPath()
@@ -49,9 +51,5 @@ export default class Rect extends Tool {
       this.ctx?.fill()
       this.ctx?.stroke()
     }
-
-    this.ctx?.rect(x, y, w, h)
-    this.ctx?.fill()
-    this.ctx?.stroke()
   }
 }
