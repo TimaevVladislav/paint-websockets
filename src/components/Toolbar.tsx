@@ -7,6 +7,7 @@ import Brush from "../tools/Brush"
 import Rect from "../tools/Rect"
 import Circle from "../tools/Circle"
 import Eraser from "../tools/Eraser"
+import Line from "../tools/Line"
 
 const Toolbar = () => {
 
@@ -34,7 +35,7 @@ const Toolbar = () => {
 
             <button
                 className="toolbar__btn line"
-                onClick={() => tools.setTool({tool: new Brush(canvas.canvas)})}
+                onClick={() => tools.setTool({tool: new Line(canvas.canvas)})}
             />
 
             <input type="color" />
