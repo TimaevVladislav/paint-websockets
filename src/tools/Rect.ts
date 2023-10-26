@@ -5,6 +5,7 @@ export default class Rect extends Tool {
   private mouseDown: boolean = false
   private startX: number = 0
   private startY: number = 0
+  private saved: string | undefined
 
   constructor(canvas: HTMLCanvasElement) {
     super(canvas)
@@ -26,6 +27,7 @@ export default class Rect extends Tool {
     this.ctx?.beginPath()
     this.startX = e.pageX - e.target.offsetLeft
     this.startY = e.pageY - e.target.offsetTop
+    this.saved = this.canvas.toDataURL()
   }
 
   mouseMoveHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void  {
@@ -37,6 +39,17 @@ export default class Rect extends Tool {
   }
 
   draw(x: number, y: number, w: number, h: number): void  {
+    const img: HTMLImageElement = new Image()
+    img.src = this.saved as string
+    img.onload = (): void => {
+      this.ctx?.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.ctx?.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
+      this.ctx?.beginPath()
+      this.ctx?.rect(x, y, w, h)
+      this.ctx?.fill()
+      this.ctx?.stroke()
+    }
+
     this.ctx?.rect(x, y, w, h)
     this.ctx?.fill()
     this.ctx?.stroke()
