@@ -5,6 +5,8 @@ import canvas from "../store/canvas"
 
 import Brush from "../tools/Brush"
 import Rect from "../tools/Rect"
+import Circle from "../tools/Circle"
+import Eraser from "../tools/Eraser"
 
 const Toolbar = () => {
 
@@ -22,12 +24,12 @@ const Toolbar = () => {
 
             <button
                 className="toolbar__btn circle"
-                onClick={() => tools.setTool({tool: new Brush(canvas.canvas)})}
+                onClick={() => tools.setTool({tool: new Circle(canvas.canvas)})}
             />
 
             <button
                 className="toolbar__btn eraser"
-                onClick={() => tools.setTool({tool: new Brush(canvas.canvas)})}
+                onClick={() => tools.setTool({tool: new Eraser(canvas.canvas)})}
             />
 
             <button

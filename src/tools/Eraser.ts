@@ -1,0 +1,14 @@
+import Brush from "./Brush"
+
+export default class Eraser extends Brush {
+
+  constructor(canvas: HTMLCanvasElement) {
+    super(canvas)
+  }
+
+  draw(x: number, y: number): void  {
+    this.ctx!.strokeStyle = "#FFF"
+    this.ctx?.lineTo(x, y)
+    this.ctx?.stroke()
+  }
+}
