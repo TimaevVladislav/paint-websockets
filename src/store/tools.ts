@@ -11,8 +11,20 @@ class ToolStore {
         makeAutoObservable(this)
     }
 
-    setTool(tool: IToolClass) {
+    setTool(tool: IToolClass): void {
         this.tool = tool
+    }
+
+    setFillColor(color: string): void {
+        this.tool.fillColor = color
+    }
+
+    setStrokeColor(color: string): void {
+        this.tool.strokeColor = color
+    }
+
+    setLineWidth(width: string): void {
+        this.tool.lineWidth = width
     }
 }
 

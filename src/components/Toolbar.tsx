@@ -1,4 +1,4 @@
-import React from "react"
+import React, {ChangeEvent} from "react"
 import "../css/modules/Toolbar.module.scss"
 import tools from "../store/tools"
 import canvas from "../store/canvas"
@@ -10,6 +10,11 @@ import Eraser from "../tools/Eraser"
 import Line from "../tools/Line"
 
 const Toolbar = () => {
+
+    const changeColor = (e: ChangeEvent<HTMLInputElement>) => {
+        tools.setFillColor(e.target.value)
+        tools.setStrokeColor(e.target.value)
+    }
 
     return (
         <div className="toolbar">
@@ -38,7 +43,10 @@ const Toolbar = () => {
                 onClick={() => tools.setTool({tool: new Line(canvas.canvas)})}
             />
 
-            <input type="color" />
+            <input
+                onChange={(e) => changeColor(e)}
+                type="color"
+            />
 
             <button
                 className="toolbar__btn undo"
@@ -58,4 +66,4 @@ const Toolbar = () => {
     )
 }
 
-export default Toolbar;
+export default Toolbar

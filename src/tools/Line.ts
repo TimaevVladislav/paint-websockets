@@ -25,7 +25,7 @@ export default class Line extends Tool {
   mouseDownHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void {
     this.mouseDown = true
     this.ctx?.beginPath()
-    this.ctx?.moveTo(this.currentX, this.currentY )
+    this.ctx?.moveTo(this.currentX, this.currentY)
     let currentX = e.pageX - e.target.offsetLeft
     let currentY = e.pageY - e.target.offsetTop
     this.saved = this.canvas.toDataURL()
