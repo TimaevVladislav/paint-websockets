@@ -50,12 +50,12 @@ const Toolbar = () => {
 
             <button
                 className="toolbar__btn undo"
-                onClick={() => tools.setTool({tool: new Brush(canvas.canvas)})}
+                onClick={() => canvas.clearUndo()}
             />
 
             <button
                 className="toolbar__btn redo"
-                onClick={() => tools.setTool({tool: new Brush(canvas.canvas)})}
+                onClick={() => canvas.redoCanvas()}
             />
 
             <button
