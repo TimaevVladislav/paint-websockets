@@ -1,15 +1,20 @@
-import React from "react"
+import React, {useId} from "react"
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
+import Home from "./pages/Home"
 
-import Toolbar from "./components/Toolbar"
-import SettingBar from "./components/SettingBar"
-import Canvas from "./components/Canvas"
 
 function App() {
+  const uuid = useId()
+
   return (
     <div className="app">
-      <Toolbar />
-      <SettingBar />
-      <Canvas />
+     <Router>
+         <Routes>
+             <Route path="/:id" element={<Home />} />
+         </Routes>
+
+         <Navigate to={`f${new Date().toString()} ${uuid}`} />
+     </Router>
     </div>
   )
 }

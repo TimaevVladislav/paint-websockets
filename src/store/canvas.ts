@@ -4,6 +4,7 @@ class CanvasStore {
     canvas: HTMLCanvasElement = document.createElement("canvas")
     undo: Array<string> = []
     redo: Array<string> = []
+    username: string = ""
 
     constructor() {
         makeAutoObservable(this)
@@ -11,6 +12,10 @@ class CanvasStore {
 
     setCanvas(canvas: HTMLCanvasElement) {
         this.canvas = canvas
+    }
+
+    setUserName(username: string) {
+        this.username = username
     }
 
     setUndo(undo: string) {
