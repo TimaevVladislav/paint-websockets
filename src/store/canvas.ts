@@ -26,7 +26,7 @@ class CanvasStore {
         if (this.undo.length > 0) {
             let url = this.undo.pop()
             let img: HTMLImageElement = new Image()
-            this.redo.push(url!)
+            this.redo.push(this.canvas.toDataURL())
 
             img.src = url!
             img.onload = () => {
@@ -41,9 +41,9 @@ class CanvasStore {
     redoCanvas() {
         let ctx = this.canvas.getContext("2d")
         if (this.redo.length > 0) {
-            let url = this.undo.pop()
+            let url = this.redo.pop()
             let img: HTMLImageElement = new Image()
-            this.undo.push(url!)
+            this.undo.push(this.canvas.toDataURL())
 
             img.src = url!
             img.onload = () => {
