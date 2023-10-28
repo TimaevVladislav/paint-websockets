@@ -9,6 +9,19 @@ import tools from "../store/tools"
 import Brush from "../tools/Brush"
 import ModalName from "./ModalName"
 
+
+interface IFigure {
+    type: string
+    id: string
+    figure: {
+        type: string,
+        x: number,
+        y: number
+        color: string
+        width: number
+    }
+}
+
 const Canvas = observer(() => {
 
     const reference = useRef() as MutableRefObject<HTMLCanvasElement>
@@ -16,12 +29,15 @@ const Canvas = observer(() => {
 
     useEffect(() => {
         canvas.setCanvas(reference.current)
-        tools.setTool({tool: new Brush(reference.current)})
     }, [])
 
     useEffect(() => {
        if (canvas.username) {
            const socket = new WebSocket("ws://localhost:5000")
+           canvas.setSocket(socket)
+           canvas.setSessionId(params.id as string)
+           tools.setTool({tool: new Brush(reference.current, socket, params.id as string)})
+
            socket.onopen = () => {
                console.log("Connected")
                socket.send(JSON.stringify({
@@ -32,10 +48,27 @@ const Canvas = observer(() => {
            }
 
            socket.onmessage = (event) => {
-             console.log(event.data)
+             let message = JSON.parse(event.data)
+
+             if (message.type === "draw") {
+                 draw(message)
+             }
+
+             if (message.type === "join") {
+                 console.log(`${message.username} joined`)
+             }
            }
        }
     }, [canvas.username])
+
+    const draw = (message: IFigure): void => {
+      const figure = message.figure
+      const ctx = reference.current.getContext("2d")
+      switch (figure.type) {
+          case "brush":
+              Brush.draw(ctx, figure.x, figure.y)
+      }
+    }
 
     const onMouseDown = (): void => {
         canvas.setUndo(reference.current.toDataURL())

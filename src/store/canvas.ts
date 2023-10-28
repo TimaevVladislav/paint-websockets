@@ -4,6 +4,8 @@ class CanvasStore {
     canvas: HTMLCanvasElement = document.createElement("canvas")
     undo: Array<string> = []
     redo: Array<string> = []
+    socket: WebSocket = new WebSocket("ws://localhost:5000")
+    sessionId: string = ""
     username: string = ""
 
     constructor() {
@@ -12,6 +14,14 @@ class CanvasStore {
 
     setCanvas(canvas: HTMLCanvasElement) {
         this.canvas = canvas
+    }
+
+    setSessionId(sessionId: string) {
+        this.sessionId = sessionId
+    }
+
+    setSocket(socket: WebSocket) {
+        this.socket = socket
     }
 
     setUserName(username: string) {

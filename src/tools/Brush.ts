@@ -4,8 +4,8 @@ export default class Brush extends Tool {
 
   private mouseDown: boolean = false
 
-  constructor(canvas: HTMLCanvasElement) {
-    super(canvas)
+  constructor(canvas: HTMLCanvasElement, socket: WebSocket, id: string) {
+    super(canvas, socket, id)
     this.listen()
   }
 
@@ -26,11 +26,16 @@ export default class Brush extends Tool {
   }
 
   mouseMoveHandler<T extends HTMLElement>(e: MouseEvent & { target: T }): void  {
-    this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
+    // this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
+    this.socket?.send(JSON.stringify({
+        type: "draw",
+        id: this.sessionId,
+        figure: {type: "brush", x: e.pageX - e.target.offsetLeft, y: e.pageY - e.target.offsetTop, color: this.ctx?.strokeStyle, width: this.ctx?.lineWidth}
+    }))
   }
 
-  draw(x: number, y: number): void  {
-    this.ctx?.lineTo(x, y)
-    this.ctx?.stroke()
+  static draw(ctx: any, x: number, y: number): void  {
+    ctx?.lineTo(x, y)
+    ctx?.stroke()
   }
 }
