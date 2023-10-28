@@ -5,7 +5,7 @@ interface IToolClass {
 }
 
 class ToolStore {
-    tool: any = null
+    tool: any
 
     constructor() {
         makeAutoObservable(this)

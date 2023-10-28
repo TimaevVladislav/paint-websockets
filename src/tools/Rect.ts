@@ -1,6 +1,4 @@
 import Tool from "./Tool"
-import {bindReporter} from "web-vitals/dist/modules/lib/bindReporter";
-import {isBigInt64Array} from "util/types";
 
 export default class Rect extends Tool {
 

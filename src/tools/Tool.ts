@@ -1,3 +1,4 @@
+import {observable} from "mobx";
 
 export default class Tool {
     canvas: HTMLCanvasElement
@@ -18,7 +19,7 @@ export default class Tool {
     }
 
     set lineWidth(width: number) {
-      this.ctx!.lineWidth = width
+        this.ctx!.lineWidth = width
     }
 
     destroyEvents(): void {
